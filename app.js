@@ -11,6 +11,9 @@ app.get("/", function (req, res){
   res.render("sites/home");
 });
 
+
+
+
 app.listen(3000, function() {
   console.log(new Array(51).join("*"));
   console.log("\t LISTENING ON: \n\t\t localhost:3000");
