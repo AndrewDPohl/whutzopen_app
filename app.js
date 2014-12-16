@@ -4,7 +4,8 @@ var express = require("express"),
   app = express(),
   passport = require("passport"),
   session = require("cookie-session"),
-  bcrypt = require("bcrypt");
+  bcrypt = require("bcrypt"),
+  request = require("request");
 
 app.use(express.static(__dirname + "/public"));
 app.set("view engine", "ejs");
@@ -15,14 +16,17 @@ app.use(session( {
   name: 'oatmeal-raisen',
   madage: 3600000
 }));
+
 //get passport started
 app.use(passport.initialize());
 app.use(passport.session());
+
 //SERIALIZE USER DATA
 passport.serializeUser(function(user, done){
   console.log("SERIALIZED JUST RAN!");
   done(null, user.id);
 });
+
 //DESERIALIZE
 passport.deserializeUser(function(id, done){
   console.log("DESERIALIZED JUST RAN!");
@@ -51,7 +55,7 @@ app.get("/", function (req, res) {
 
 //Show the home page/login page
 app.get("/home", function (req, res){
-  res.render("sites/home");
+  res.render("site/home");
 });
 
 //WHEN SOMEONE WANTS TO SUBMIT A SIGN UP/LOGIN
@@ -76,21 +80,36 @@ app.post("/home", function (req, res) {
     })
 });
 
-app.get("/users/:id", function (req, res) {
-  var id = req.params.id;
-  db.user.find(id)
-    .then(function (user) {
-      res.render("users/show", {user: user});
-    })
-    .error(function () {
-      res.redirect("/sign_up");
-    })
+
+
+app.get('/search', function(req, res){
+  // Build the URL that we're going to call.
+  var url = "https://api.foursquare.com/v2/venues/search?ll=40.7,-74&client_id=00WTXTLR54SU1KI5HWJZFQYXIINYHAK5TJ5GQDW4LTRQUBZI&client_secret=ML0WO0WL55FISZDM4UJU5YRRMXKGQD040KKEB13GZ5JRGBSD&v=20141215";
+  // Call the OMDB API searching for the movie.
+  request(url, function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+      var obj = JSON.parse(body);
+      console.log(obj.response.venues);
+    }
+  });
+res.render("site/search", {});
 });
+
+// app.get("/users/:id", function (req, res) {
+//   var id = req.params.id;
+//   db.user.find(id)
+//     .then(function (user) {
+//       res.render("users/show", {user: user});
+//     })
+//     .error(function () {
+//       res.redirect("/sign_up");
+//     })
+// });
 
 
 // When someone wants the login page
 app.get("/login", function (req, res) {
-  res.render("sites/login");
+  res.render("site/login");
 });
 
 // Authenticating a user
@@ -112,11 +131,11 @@ app.get("/", function (req, res) {
 });
 
 app.get("/index", function (req, res){
-  res.render("sites/index");
+  res.render("site/index");
 });
 
 app.get("/show", function (req, res){
-  res.render("sites/show");
+  res.render("site/show");
 });
 
 
