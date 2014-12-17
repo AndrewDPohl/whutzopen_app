@@ -1,28 +1,108 @@
 <!DOCTYPE html>
 <head>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.js'></script>
+  <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.css' rel='stylesheet' />
+  <style>
+  body { margin:0; padding:0; }
+  #map { height: 500px; width:50%; margin: 10px;}
+</style>
 </head>
-<body>
-<div id="header">
-  <h1>WHUTZOPEN? SHOW PAGE</h1>
-</div>  
+  <body>
+    <div id="header">
+      <h1>WHUTZOPEN? SHOW PAGE</h1>
+    </div>  
 
-<div id="nav">
-    <button>SEARCH</button><br>
-    <button>LOG OUT</button><br>
-</div>
+    <div id="nav">
+      <button>SEARCH</button><br>
+      <button>LOG OUT</button><br>
+    </div>
 
-<iframe width='50%' height='500px' frameBorder='0' src='https://a.tiles.mapbox.com/v4/andrewdpohl.kfnbcn30/attribution,zoompan,zoomwheel,geocoder,share.html?access_token=pk.eyJ1IjoiYW5kcmV3ZHBvaGwiLCJhIjoia0g2VFNjWSJ9.dvDZXc0gCmUkqD916mkNdQ'></iframe>
 
-<div id="section">
-  <h3>USER GOES HERE</h3>
-  <ul>
-    <li>ONE</li>
-    <li>TWO</li>
-    <li>THREE</li>
-    <li>ETC</li>
-  </ul>
-</div>
+    <div id='map'></div>
 
-<div id="footer">FOOTER GOES HERE</div>
-</body>
+
+
+      <script id="venuesList" type="application/json"><%- JSON.stringify(venuesList) %></script>
+      <script>
+        var setupMap = function (map, coords){
+        map.setView(coords, 13);
+    // L.marker is a low-level marker constructor in Leaflet.
+
+        // iterate over items in venues
+        venuesList.forEach(function (item) {
+          var loc = [
+                      item.venue.location.lat,
+                      item.venue.location.lng
+                    ];
+
+          //create a marker for each venue loc
+          L.marker(loc, {
+            // style icon
+            icon: L.mapbox.marker.icon({
+              'marker-size': 'large',
+              'marker-symbol': 'star',
+              'marker-color': '#1a4'
+            })// adds to the map
+          }).addTo(map);
+        });
+
+            
+        // L.marker([37.9, -77], {
+        //       icon: L.mapbox.marker.icon({
+        //           'marker-size': 'large',
+        //           'marker-symbol': 'bus',
+        //           'marker-color': '#fa0'
+        //       })
+        //   }).addTo(map);
+        };
+        // window.addEventListener("load", function () {
+                        console.log("Hello world");
+          var data = document.getElementById("venuesList");
+          var venuesList =JSON.parse(data.innerHTML);
+          console.log(venuesList);
+                  L.mapbox.accessToken = 'pk.eyJ1IjoiYW5kcmV3ZHBvaGwiLCJhIjoia0g2VFNjWSJ9.dvDZXc0gCmUkqD916mkNdQ';
+          var map = L.mapbox.map('map', 'andrewdpohl.kfnbcn30')
+          navigator.geolocation.getCurrentPosition(function (pos){
+            console.log(pos)
+            setupMap(map, [pos.coords.latitude, pos.coords.longitude]);
+          }, function  (){
+           var coords = [37.7833, 122.4167];
+            setupMap(map, coords);
+          })
+
+        // });
+      </script>
+
+      <% venuesList.forEach(function (item) {  %>
+        <div>
+        <%= item.venue.name %><br>
+        <%= item.venue.location.formattedAddress %><br>
+        <a href= "<%= item.venue.url %>"><%= item.venue.url %></a><br>
+        <%= item.venue.contact.formattedPhone %><br>
+        <form action="/push" method="ADD">
+          <button id="favorite">FAVORITE</button>
+          </form>
+        </div>
+
+      <% }) %>
+    </div> 
+
+    <div id="section">
+      <h3>USER GOES HERE</h3>
+      <ul>
+        <li>ONE</li>
+        <li>TWO</li>
+        <li>THREE</li>
+        <li>ETC</li>
+      </ul>
+    </div>
+
+    <div id="footer">FOOTER GOES HERE</div>
+
+    
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+  </body>
 </html>

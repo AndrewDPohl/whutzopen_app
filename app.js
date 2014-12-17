@@ -80,20 +80,22 @@ app.post("/home", function (req, res) {
     })
 });
 
+/*AFTER CLICKING A BUTTON FROM THE INDEX PAGE, THIS FUNCTION RUNS AND
+  REDIRECTS TO THE SHOW PAGE */
+app.get("/search", function (req, res) {
+  var url = "https://api.foursquare.com/v2/venues/explore?near=San-Francisco,CA&openNow=1&radius=30000&sortByDistance=1&limit=20&query="+ req.query.category +"&client_id=00WTXTLR54SU1KI5HWJZFQYXIINYHAK5TJ5GQDW4LTRQUBZI&client_secret=ML0WO0WL55FISZDM4UJU5YRRMXKGQD040KKEB13GZ5JRGBSD&v=20141216"
+  request(url, function (err, response, body) {
+    //console.log(body);
+    var results = JSON.parse(body);
+    console.log(results);
+    var venues = results.response.groups[0].items
 
+     // res.send(venues)
+    res.render("site/show", {venuesList: venues});
 
-app.get('/search', function(req, res){
-  // Build the URL that we're going to call.
-  var url = "https://api.foursquare.com/v2/venues/search?ll=40.7,-74&client_id=00WTXTLR54SU1KI5HWJZFQYXIINYHAK5TJ5GQDW4LTRQUBZI&client_secret=ML0WO0WL55FISZDM4UJU5YRRMXKGQD040KKEB13GZ5JRGBSD&v=20141215";
-  // Call the OMDB API searching for the movie.
-  request(url, function (error, response, body) {
-    if (!error && response.statusCode == 200) {
-      var obj = JSON.parse(body);
-      console.log(obj.response.venues);
-    }
   });
-res.render("site/search", {});
 });
+
 
 // app.get("/users/:id", function (req, res) {
 //   var id = req.params.id;
@@ -134,9 +136,9 @@ app.get("/index", function (req, res){
   res.render("site/index");
 });
 
-app.get("/show", function (req, res){
-  res.render("site/show");
-});
+// app.get("/show", function (req, res){
+//   res.render("site/show");
+// });
 
 
 app.listen(3000, function() {

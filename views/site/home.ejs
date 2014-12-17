@@ -1,21 +1,28 @@
 <!DOCTYPE html>
-<head>
-</head>
-<body>
-  <h1>WHUTZOPEN?</h1>
-  
-  <h3>Sign Up To Use WhutzOpen?</h3>
-  
-  <form action="/users" method="post">
-    Email: <input type="text" name="email"><br>
-    Password: <input type="text" name="password"><br>
-    First Name: <input type="text" name="firstName"><br>
-    Last Name: <input type="text" name="lastName"><br>
-    <input type="submit" value="Submit">
-  </form>
+<html>
+  <head>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+  </head>
+    <body>
+      <h1>WHUTZOPEN?</h1>
+      
+      <h3>Sign Up To Use WhutzOpen?</h3>
+      
+      <form action="/users" method="post">
+        Email: <input type="text" name="email"><br>
+        Password: <input type="text" name="password"><br>
+        First Name: <input type="text" name="firstName"><br>
+        Last Name: <input type="text" name="lastName"><br>
+        <input type="submit" value="Submit">
+      </form>
 
-  <button id="login">LOG IN HERE</button>
+      <button type="button" class="btn btn-primary btn-lg btn-block" id="login">LOG IN HERE</button>
+      
 
-</body>
+
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+      <script src="js/bootstrap.min.js"></script>
+    </body>
 </html>
 
