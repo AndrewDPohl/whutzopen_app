@@ -4,7 +4,6 @@ var express = require("express"),
   app = express(),
   passport = require("passport"),
   session = require("cookie-session"),
-  bcrypt = require("bcrypt"),
   request = require("request");
 
 app.use(express.static(__dirname + "/public"));
@@ -30,7 +29,7 @@ passport.serializeUser(function(user, done){
 //DESERIALIZE
 passport.deserializeUser(function(id, done){
   console.log("DESERIALIZED JUST RAN!");
-  db.user.find({
+  db.users.find({
     where: {
       id: id
     }
@@ -53,18 +52,18 @@ app.get("/", function (req, res) {
 });
 
 
-//Show the home page/login page
-app.get("/home", function (req, res){
-  res.render("site/home");
+//Show the signup page/login page
+app.get("/sign_up", function (req, res){
+  res.render("users/sign_up");
 });
 
 //WHEN SOMEONE WANTS TO SUBMIT A SIGN UP/LOGIN
-app.post("/home", function (req, res) {
-  console.log("POST /home");
+app.post("/users", function (req, res) {
+  console.log("POST /users");
   var newUser = req.body.user;
   console.log("New User:", newUser);
   // CREATE a user and secure their password
-  db.users.createSecure(newUser.email, newUser.password, newUser.firstName, newUser.lastName, 
+  db.users.createSecure(req.body.user.email, req.body.user.password, req.body.user.firstName, req.body.user.lastName, 
     function () {
       // if a user fails to create make them signup again
       res.redirect("/sign_up");
@@ -75,7 +74,7 @@ app.post("/home", function (req, res) {
       req.login(user, function(){
         // after login redirect show page
         console.log("Id: ", user.id)
-        res.redirect('/home/' + user.id);
+        res.redirect("site/list/" + user.id);
       });
     })
 });
@@ -89,34 +88,33 @@ app.get("/search", function (req, res) {
     var results = JSON.parse(body);
     console.log(results);
     var venues = results.response.groups[0].items
-
+    console.log(venues)
      // res.send(venues)
-    res.render("site/show", {venuesList: venues});
+    res.render("site/show", {venuesList: venues, currentUser: req.user});
 
   });
 });
 
 
-// app.get("/users/:id", function (req, res) {
-//   var id = req.params.id;
-//   db.user.find(id)
-//     .then(function (user) {
-//       res.render("users/show", {user: user});
-//     })
-//     .error(function () {
-//       res.redirect("/sign_up");
-//     })
-// });
-
+app.get("/users/:id", function (req, res) {
+  var id = req.params.id;
+  db.users.find(id)
+    .then(function (user) {
+      res.render("site/list", {user: user});
+    })
+    .error(function () {
+      res.redirect("/sign_up");
+    })
+});
 
 // When someone wants the login page
 app.get("/login", function (req, res) {
-  res.render("site/login");
+  res.render("users/login");
 });
 
 // Authenticating a user
 app.post('/login', passport.authenticate('local', {
-  successRedirect: '/',
+  successRedirect: '/list',
   failureRedirect: '/login'
 }));
 
@@ -126,19 +124,34 @@ app.get("/", function (req, res) {
   // req.user is the user currently logged in
 
   if (req.user) {
-    res.render("site/index", {user: req.user});
+    res.render("site/search", {user: req.user});
   } else {
-    res.render("site/index", {user: false});
+    res.render("site/search", {user: false});
   }
 });
 
-app.get("/index", function (req, res){
-  res.render("site/index");
+app.get("/list", function (req, res) {
+  res.render("site/list");
 });
 
-// app.get("/show", function (req, res){
-//   res.render("site/show");
-// });
+app.get("/show", function (req, res){
+  res.render("site/show");
+});
+
+app.get("/logout", function (req, res) {
+  req.logout();
+  res.redirect("users/login");
+});
+
+// Sites related routes
+app.get("/home", function (req, res) {
+  console.log(req.user)
+  if (req.user) {
+    res.render("site/home", {user: req.user});
+  } else {
+    res.render("site/home", {user: false});
+  }
+});
 
 
 app.listen(3000, function() {

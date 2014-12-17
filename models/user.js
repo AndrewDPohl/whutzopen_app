@@ -1,111 +1,83 @@
 "use strict";
 
 var bcrypt = require("bcrypt");
-var salt = bcrypt.genSaltSync(10);
+var passport = require("passport");
+var passportLocal = require("passport-local");
 
-module.exports = function (sequelize, DataTypes){
-  var User = sequelize.define('user', {
-    email: { 
-      type: DataTypes.STRING, 
-      unique: true, 
-      validate: {
-        len: [6, 30],
-      }
-    },
-    password: {
-      type:DataTypes.STRING,
-      validate: {
-        notEmpty: true
-      }
-    },
-    firstName: {
-      type:DataTypes.STRING,
-      validate: {
-        notEmpty: true
-      }
-    },
-    lastName: {
-      type:DataTypes.STRING,
-      validate: {
-        notEmpty: true
-      }
-    }
-  },
-
-  {
+module.exports = function(sequelize, DataTypes) {
+  var user = sequelize.define("users", {
+    email: DataTypes.STRING,
+    password: DataTypes.STRING,
+    firstName: DataTypes.STRING,
+    lastName: DataTypes.STRING
+  }, {
     instanceMethods: {
-      checkPassword: function(password) {
-        return bcrypt.compareSync(password, this.password_digest);
+      checkPassword: function (password) {
+        return bcrypt.compareSync(password, this.password);
       }
     },
     classMethods: {
-      encryptPassword: function(password) {
-        var hash = bcrypt.hashSync(password, salt);
-        return hash;
+      associate: function(models) {
+        // associations can be defined here
+      // this.hasMany(models.article);
+        this.hasMany(models.favorite);
       },
-      createSecure: function(email, password, err, success ) {
-        if(password.length < 6) {
-          err({message: "Password should be more than six characters"});
-        }
-        else{
-          this.create({
-            email: email,
-            password_digest: this.encryptPassword(password)
-          }).error(function(error) {
-            console.log(error);
-            if(error.email){
-              err({message: 'Your username should be at least 6 characters long', email: email});
-            }
-            else{
-              err({message: 'An account with that username already exists', email: email});
-            }
-          }).success(function(user) {
-            success({message: 'Account created, please log in now'});
-          });
-        }
-      },
-      authenticate: function(email, password, err, success) {
-        // find a user in the DB
-        this.find({
+      findByEmail: function (email) {
+        return this.find({
           where: {
             email: email
           }
-        })
-        // when that's done, 
-        .done(function(error,user){
-          if(error){
-            console.log(error);
-            err({message: "Oops! Something went wrong"});
-          }
-          else if (user === null){
-            err({message: "Username does not exist"});
-          }
-          else if ((User.comparePass(password, user.password_digest)) === true){
-            success();
-          }
-          else {
-            err({message: "Invalid password"});
-          }
         });
+      },
+      encryptPassword: function (password) {
+        var salt = bcrypt.genSaltSync(13);
+        var hash = bcrypt.hashSync(password, salt);
+        return hash;
+      },
+      createSecure: function (email, password, firstName, lastName, error, success) {
+        var hash = this.encryptPassword(password);
+        this.create({
+          email: email,
+          password: hash,
+          firstName: firstName,
+          lastName: lastName
+        })
+        .then(function (user) {
+          console.log("YES!!")
+          success(null, user, {message: "logged in"});
+        },
+        function (err) {
+          console.log("Whatt?")
+          console.log(arguments)
+          console.log(err)
+          error(null, false, {message: "something went wrong"});
+        });
+      },
+      authenticate: function (email, password, done) {
+        this.findByEmail(email)
+        .then(function (user) {
+          if (user.checkPassword(password)) {
+            done(null, user);
+          } else {
+            done(null, false, {message: "oops"});
+          }
+        },
+        function (err) {
+            done(err)
+        })
       }
-
-    } // close classMethods
-  }); // close define user
-  return User;
-}; // close User function
-// module.exports = function(sequelize, DataTypes) {
-//   var user = sequelize.define("user", {
-//     email: DataTypes.STRING,
-//     password: DataTypes.STRING,
-//     firstName: DataTypes.STRING,
-//     lastName: DataTypes.STRING
-//   }, {
-//     classMethods: {
-//       associate: function(models) {
-//         // associations can be defined here
-//       }
-//     }
-//   });
-
-//   return user;
-// };
+    }
+  });
+  passport.use(new passportLocal.Strategy(
+    {
+      usernameField: 'user[email]',
+      passwordField: 'user[password]',
+      passReqToCallback : true
+    },
+    function (req, email, password, done) {
+      console.log("Authenticating");
+      user.authenticate(email, password, done);
+    }
+  ))
+  return user;
+};

@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html>
+<body>
+<p>Hello</p>
+
+  <script id="venuesList" type="application/json"><%- JSON.stringify(venuesList) %></script>
+  <script>
+    window.addEventListener("load", function () {
+      console.log("Hello world");
+      var data = document.getElementById("venuesList");
+      var venuesList =JSON.parse(data.innerHTML);
+      console.log(venuesList);
+    });
+  </script>
+
+  <% venuesList.forEach(function (item) {  %>
+    <div>
+    <%= item.venue.name %><br>
+    <%= item.venue.location.formattedAddress %><br>
+    <a href= "<%= item.venue.url %>"><%= item.venue.url %></a>
+    </div>
+
+  <% }) %>
+</body>
+</html>

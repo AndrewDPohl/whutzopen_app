@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <head>
   <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/stylesheets/main.css">
   <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.js'></script>
   <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.css' rel='stylesheet' />
   <style>
@@ -14,17 +15,28 @@
     </div>  
 
     <div id="nav">
-      <button>SEARCH</button><br>
-      <button>LOG OUT</button><br>
+      <form method="get" action="/list">
+        <button type="submit">SEARCH</button><br>
+      </form>  
+
     </div>
+    <% if (currentUser) {%>
+      <div>
+        <%= currentUser.email %>
+        <form method="get" action="/logout">   
+          <button type="submit">LOG OUT</button>
+        </form> 
+      </div>
+    <%} else { %>
+        <form method="get" action="/sign_up">
+          <button type="submit" id="sign_up">SIGN UP HERE</button>
+        </form>
+    <% } %>
 
 
     <div id='map'></div>
-
-
-
-      <script id="venuesList" type="application/json"><%- JSON.stringify(venuesList) %></script>
-      <script>
+    <script id="venuesList" type="application/json"><%- JSON.stringify(venuesList) %></script>
+    <script>
         var setupMap = function (map, coords){
         map.setView(coords, 13);
     // L.marker is a low-level marker constructor in Leaflet.
@@ -57,11 +69,11 @@
         //   }).addTo(map);
         };
         // window.addEventListener("load", function () {
-                        console.log("Hello world");
+          console.log("Hello world");
           var data = document.getElementById("venuesList");
           var venuesList =JSON.parse(data.innerHTML);
           console.log(venuesList);
-                  L.mapbox.accessToken = 'pk.eyJ1IjoiYW5kcmV3ZHBvaGwiLCJhIjoia0g2VFNjWSJ9.dvDZXc0gCmUkqD916mkNdQ';
+          L.mapbox.accessToken = 'pk.eyJ1IjoiYW5kcmV3ZHBvaGwiLCJhIjoia0g2VFNjWSJ9.dvDZXc0gCmUkqD916mkNdQ';
           var map = L.mapbox.map('map', 'andrewdpohl.kfnbcn30')
           navigator.geolocation.getCurrentPosition(function (pos){
             console.log(pos)
@@ -80,7 +92,7 @@
         <%= item.venue.location.formattedAddress %><br>
         <a href= "<%= item.venue.url %>"><%= item.venue.url %></a><br>
         <%= item.venue.contact.formattedPhone %><br>
-        <form action="/push" method="ADD">
+        <form action="/favorite" method="POST">
           <button id="favorite">FAVORITE</button>
           </form>
         </div>
