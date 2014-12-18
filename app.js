@@ -79,6 +79,17 @@ app.post("/users", function (req, res) {
     })
 });
 
+app.post("/favorite", function (req, res) {
+  console.log("POST /favorites");
+  var newFavorite = req.body.favorite;
+  console.log("New Favorite", newFavorite);
+  //PUSH A NEW FAVORITE TO THE FAVORITE DB
+  db.favorite.create(newFavorite).then(
+  function () {
+    res.redirect("/list");
+  });
+});
+
 /*AFTER CLICKING A BUTTON FROM THE INDEX PAGE, THIS FUNCTION RUNS AND
   REDIRECTS TO THE SHOW PAGE */
 app.get("/search", function (req, res) {
@@ -119,16 +130,16 @@ app.post('/login', passport.authenticate('local', {
 }));
 
 
-app.get("/", function (req, res) {
-  console.log(req.user)
-  // req.user is the user currently logged in
+// app.get("/", function (req, res) {
+//   console.log(req.user)
+//   // req.user is the user currently logged in
 
-  if (req.user) {
-    res.render("site/search", {user: req.user});
-  } else {
-    res.render("site/search", {user: false});
-  }
-});
+//   if (req.user) {
+//     res.render("site/search", {user: req.user});
+//   } else {
+//     res.render("site/search", {user: false});
+//   }
+// });
 
 app.get("/list", function (req, res) {
   res.render("site/list");
@@ -154,7 +165,7 @@ app.get("/home", function (req, res) {
 });
 
 
-app.listen(3000, function() {
+app.listen(process.env.PORT || 3000, function() {
   console.log(new Array(51).join("*"));
   console.log("\t LISTENING ON: \n\t\t localhost:3000");
   console.log(new Array(51).join("*")); 

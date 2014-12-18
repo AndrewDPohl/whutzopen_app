@@ -1,0 +1,47 @@
+.homey {
+  background-image: url(http://i.imgur.com/kgC3pHH.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+} 
+
+.list {
+  background-image: url(http://i.imgur.com/9hvgxgp.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+ 
+.main_logo {
+  font-family: 'Pacifico', cursive;
+  font-size: 150px;
+  color: rgb(211, 84, 0);
+  position: center;
+  text-shadow: 2px 2px 8px #FF0000; 
+}
+
+.log_in{
+  color: white;
+  text-shadow: 2px 2px 4px #000000;
+  font-size: 35px;
+}
+
+.login_form {
+  position: center;
+}
+
+.sign_up {
+  color: white;
+  text-shadow: 2px 2px 4px #000000;
+  font-size: 35px;
+}
+
+.app_phrase {
+  color: white;
+  text-shadow: 2px 2px 4px #000000;
+  font-size: 35px;
+}
+
+.list_text {
+  color: white;
+  text-shadow: 2px 2px 4px #000000;
+  font-size: 35px;
+}

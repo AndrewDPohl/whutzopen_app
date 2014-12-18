@@ -12,27 +12,26 @@
   <body>
     <div id="header">
       <h1>WHUTZOPEN? SHOW PAGE</h1>
-    </div>  
-
-    <div id="nav">
-      <form method="get" action="/list">
-        <button type="submit">SEARCH</button><br>
-      </form>  
-
     </div>
+
+    <div id="nav"> 
     <% if (currentUser) {%>
       <div>
-        <%= currentUser.email %>
+        <h3>Welcome Back, </h3><%= currentUser.firstName %>
         <form method="get" action="/logout">   
           <button type="submit">LOG OUT</button>
+        </form><br>
+        <form method="get" action="/list">
+          <button type="submit">SEARCH</button><br>
         </form> 
       </div>
-    <%} else { %>
+    <%} else { %> 
         <form method="get" action="/sign_up">
           <button type="submit" id="sign_up">SIGN UP HERE</button>
         </form>
     <% } %>
-
+    </div>  
+    
 
     <div id='map'></div>
     <script id="venuesList" type="application/json"><%- JSON.stringify(venuesList) %></script>
@@ -93,24 +92,14 @@
         <a href= "<%= item.venue.url %>"><%= item.venue.url %></a><br>
         <%= item.venue.contact.formattedPhone %><br>
         <form action="/favorite" method="POST">
+        <input name="favorite[venueId]" value="<%=item.venue.id%>"/>
+        <input name="favorite[userId]" value="<%=currentUser.id%>"/>
           <button id="favorite">FAVORITE</button>
           </form>
         </div>
 
       <% }) %>
-    </div> 
-
-    <div id="section">
-      <h3>USER GOES HERE</h3>
-      <ul>
-        <li>ONE</li>
-        <li>TWO</li>
-        <li>THREE</li>
-        <li>ETC</li>
-      </ul>
     </div>
-
-    <div id="footer">FOOTER GOES HERE</div>
 
     
 
