@@ -1,104 +1,150 @@
 <!DOCTYPE html>
 <head>
-  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+  <meta charset="utf-8">
+  <title>LOGIN PAGE</title>
+  <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
   <link rel="stylesheet" href="/stylesheets/main.css">
   <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.js'></script>
   <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.css' rel='stylesheet' />
   <style>
   body { margin:0; padding:0; }
-  #map { height: 500px; width:50%; margin: 10px;}
+  #map { height: 390px; width:50%; margin-top: 260px;}
 </style>
 </head>
-  <body>
-    <div id="header">
-      <h1>WHUTZOPEN? SHOW PAGE</h1>
-    </div>
-
-    <div id="nav"> 
-    <% if (currentUser) {%>
-      <div>
-        <h3>Welcome Back, </h3><%= currentUser.firstName %>
-        <form method="get" action="/logout">   
-          <button type="submit">LOG OUT</button>
-        </form><br>
-        <form method="get" action="/list">
-          <button type="submit">SEARCH</button><br>
-        </form> 
+  <div class="container">
+    <body class="show_page">
+      <div id="header">
+        <h1 class="main_logo_show">whutzOpen?</h1>
       </div>
-    <%} else { %> 
-        <form method="get" action="/sign_up">
-          <button type="submit" id="sign_up">SIGN UP HERE</button>
-        </form>
-    <% } %>
-    </div>  
-    
 
-    <div id='map'></div>
-    <script id="venuesList" type="application/json"><%- JSON.stringify(venuesList) %></script>
-    <script>
-        var setupMap = function (map, coords){
-        map.setView(coords, 13);
-    // L.marker is a low-level marker constructor in Leaflet.
-
-        // iterate over items in venues
-        venuesList.forEach(function (item) {
-          var loc = [
-                      item.venue.location.lat,
-                      item.venue.location.lng
-                    ];
-
-          //create a marker for each venue loc
-          L.marker(loc, {
-            // style icon
-            icon: L.mapbox.marker.icon({
-              'marker-size': 'large',
-              'marker-symbol': 'star',
-              'marker-color': '#1a4'
-            })// adds to the map
-          }).addTo(map);
-        });
-
-            
-        // L.marker([37.9, -77], {
-        //       icon: L.mapbox.marker.icon({
-        //           'marker-size': 'large',
-        //           'marker-symbol': 'bus',
-        //           'marker-color': '#fa0'
-        //       })
-        //   }).addTo(map);
-        };
-        // window.addEventListener("load", function () {
-          console.log("Hello world");
-          var data = document.getElementById("venuesList");
-          var venuesList =JSON.parse(data.innerHTML);
-          console.log(venuesList);
-          L.mapbox.accessToken = 'pk.eyJ1IjoiYW5kcmV3ZHBvaGwiLCJhIjoia0g2VFNjWSJ9.dvDZXc0gCmUkqD916mkNdQ';
-          var map = L.mapbox.map('map', 'andrewdpohl.kfnbcn30')
-          navigator.geolocation.getCurrentPosition(function (pos){
-            console.log(pos)
-            setupMap(map, [pos.coords.latitude, pos.coords.longitude]);
-          }, function  (){
-           var coords = [37.7833, 122.4167];
-            setupMap(map, coords);
-          })
-
-        // });
-      </script>
-
-      <% venuesList.forEach(function (item) {  %>
+      <div id="nav"> 
+      <% if (currentUser) {%>
         <div>
-        <%= item.venue.name %><br>
-        <%= item.venue.location.formattedAddress %><br>
-        <a href= "<%= item.venue.url %>"><%= item.venue.url %></a><br>
-        <%= item.venue.contact.formattedPhone %><br>
-        <form action="/favorite" method="POST">
-        <input name="favorite[venueId]" value="<%=item.venue.id%>"/>
-        <input name="favorite[userId]" value="<%=currentUser.id%>"/>
-          <button id="favorite">FAVORITE</button>
+          <h3 class="show_text">Welcome Back, <%= currentUser.firstName %>
+          </h3>
+          <form method="get" action="/logout">   
+            <button type="submit">LOG OUT</button>
           </form>
+          <form method="get" action="/list">
+            <button type="submit">SEARCH</button><br>
+          </form> 
         </div>
+      <%} else { %> 
+          <form method="get" action="/sign_up">
+            <button type="submit" id="sign_up">SIGN UP HERE</button>
+          </form>
+      <% } %>
+      </div>  
+      
+      <div class="col-md-6 map-container">
+        <div id='map'></div>
+      </div>
+      <div class="col-md-6 list-container">  
+        <ul id='marker-list'></ul>
+      </div>
+      <script id="venuesList" type="application/json"><%- JSON.stringify(venuesList) %></script>
+      <script>
 
-      <% }) %>
+          window.addEventListener("load", function () {
+
+            var makeItem = function (item) {
+                var form = document.createElement("form");
+                form.action = "/favorite";
+                form.method = "POST";
+                form.innerHTML =  '' +
+                  '<h3 class="venue">' +item.venue.name + '</h3>' + '<h5 class="venue">' +item.venue.location.formattedAddress + '</h5>' + '<h5 class="venue">' +item.venue.contact.formattedPhone + '</h5>' + '<h5>' +
+                 '<input style="display:none;" name="favorite[venueId]" value="' +  item.venue.id + '"/>' +
+                 '<input style="display:none;" name="favorite[userId]" value="<%=currentUser.id %>"/>' +
+                  '<button class="btn-sm" id="favorite">FAVORITE</button>';
+                return form;
+            }
+            var data, venuesList, map;
+            data        = document.getElementById("venuesList");
+            venuesList  = JSON.parse(data.innerHTML);
+            L.mapbox.accessToken = 'pk.eyJ1IjoiYW5kcmV3ZHBvaGwiLCJhIjoia0g2VFNjWSJ9.dvDZXc0gCmUkqD916mkNdQ';
+            window.map    = map     = L.mapbox.map('map', 'andrewdpohl.kfnbcn30')
+
+            var setupMap = function (map, coords){
+              console.log(map)
+              map.setView(coords, 13);
+              // L.marker is a low-level marker constructor in Leaflet.
+              // iterate over items in venues
+
+              var markerList = document.getElementById('marker-list');
+              var lastMarker, lastOptions;
+              venuesList.forEach(function (item) {
+                var loc = [
+                            item.venue.location.lat,
+                            item.venue.location.lng
+                          ];
+
+                var options = {
+                    title: "hello",
+                    'marker-size': 'large',
+                    'marker-symbol': 'star',
+                    'marker-color': '#1a4'
+                  }
+                //create a marker for each venue loc
+                var marker = L.marker(loc, {
+                  // style icon
+                  icon: L.mapbox.marker.icon(options)// adds to the map
+                })
+                marker.addTo(map)
+                var newLi = markerList.appendChild(document.createElement('li'))
+                newLi.appendChild(makeItem(item));
+                newLi.addEventListener("click", function(){
+                  if (lastMarker) {
+                    map.removeLayer(lastMarker);
+                    lastOptions['marker-color'] = "#1a4";
+                     L.marker(loc, {
+                      icon: L.mapbox.marker.icon(lastOptions)// adds to the map
+                    }).addTo(map);
+                  }
+                  map.setView(marker.getLatLng(), 12);
+                  options['marker-color'] = "#00f";
+                  map.removeLayer(marker);
+                  marker = L.marker(loc, {
+                    icon: L.mapbox.marker.icon(options)// adds to the map
+                  });
+                  lastMarker = marker;
+                  lastOptions = options;
+                  marker.addTo(map)
+                  setTimeout(function(){
+                    map.setView(marker.getLatLng(), 15);
+                    marker.openPopup();
+                  }, 500);
+                })
+              });
+            };
+
+            var handleSucc  = function (pos){
+              setupMap(map, [pos.coords.latitude, pos.coords.longitude]);
+            };
+            var handleErr   = function  (){
+              var coords = [37.7833, -122.4167];
+              setupMap(map, coords);
+            };
+            navigator.geolocation.getCurrentPosition(handleErr, handleSucc )
+
+          });
+        </script>
+
+       <!--  <% venuesList.forEach(function (item) {  %>
+          <div>
+          <%= item.venue.name %><br>
+          <%= item.venue.location.formattedAddress %><br>
+          <a href= "<%= item.venue.url %>"><%= item.venue.url %></a><br>
+          <%= item.venue.contact.formattedPhone %><br>
+          <form action="/favorite" method="POST">
+          <input style="display:none;" name="favorite[venueId]" value="<%=item.venue.id%>"/>
+          <input style="display:none;" name="favorite[userId]" value="<%=currentUser.id%>"/>
+            <button id="favorite">FAVORITE</button>
+            </form>
+          </div><br>
+
+        <% }) %>
+      </div><br> -->
     </div>
 
     

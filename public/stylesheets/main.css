@@ -1,21 +1,80 @@
-.homey {
+.home {
   background-image: url(http://i.imgur.com/kgC3pHH.jpg);
   background-repeat: no-repeat;
   background-size: cover;
+  height: 100%;
+  width: 100%;
 } 
+
+.login_home {
+  background-image: url(http://i.imgur.com/g4KqzNY.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+}
+
+.sign_up_main {
+  background-image: url(http://i.imgur.com/ezLrcK8.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+}
 
 .list {
   background-image: url(http://i.imgur.com/9hvgxgp.jpg);
   background-repeat: no-repeat;
   background-size: cover;
+  height: 100%;
+  width: 100%;
+}
+
+.show_page {
+  background-image: url(http://i.imgur.com/kSyhSXE.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  background-attachment: fixed;
+
+}
+
+.show_text {
+  color: white;
+  text-shadow: 2px 2px 4px #000000;
+  font-size: 35px;
+  float: right;
+}
+
+.main_logo_show {
+  font-family: 'Pacifico', cursive;
+  font-size: 150px;
+  color: rgb(149, 165, 166);
+  position: fixed;
+  text-shadow: 2px 2px 8px #FF0000;
 }
  
+.sign_up_main_logo {
+  font-family: 'Pacifico', cursive;
+  font-size: 150px;
+  color: rgb(22, 160, 133);
+  position: center;
+  text-shadow: 2px 2px 8px #FF0000;
+} 
 .main_logo {
   font-family: 'Pacifico', cursive;
   font-size: 150px;
-  color: rgb(211, 84, 0);
+  color: rgb(44, 62, 80);
   position: center;
   text-shadow: 2px 2px 8px #FF0000; 
+}
+
+.main_logo_login {
+  font-family: 'Pacifico', cursive;
+  font-size: 150px;
+  color:rgb(39, 174, 96);
+  text-shadow: 2px 2px 8px #FF0000;
 }
 
 .log_in{
@@ -44,4 +103,34 @@
   color: white;
   text-shadow: 2px 2px 4px #000000;
   font-size: 35px;
+}
+
+.btn {
+  background-color: rgba(44, 62, 80,0.8);
+  color: white;
+}
+
+.venue {
+  color: yellow;
+  text-shadow: 2px 2px 4px #000000;
+  overflow: scroll;
+}
+
+#marker-list {
+  background-color: rgba(189, 195, 199,0.2)
+}
+
+#map {
+  position: fixed;
+  width: 500px;
+}
+
+#favorite {
+  background-color: rgba(44, 62, 80,0.8);
+  color: white;
+}
+
+#nav {
+  position: fixed;
+  margin-top: 145px;
 }

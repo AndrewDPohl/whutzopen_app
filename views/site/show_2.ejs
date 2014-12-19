@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
 <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -37,8 +38,23 @@
 </style>
 <div id='map'></div>
 <ul id='marker-list'></ul>
+    <script id="venuesList" type="application/json"><%- JSON.stringify(venuesList) %></script>
 <script>
 L.mapbox.accessToken = 'pk.eyJ1IjoiYW5kcmV3ZHBvaGwiLCJhIjoia0g2VFNjWSJ9.dvDZXc0gCmUkqD916mkNdQ';
+  // var map = L.mapbox.map('map', 'andrewdpohl.kfnbcn30');
+  // var markerList = document.getElementById('marker-list');
+
+  // map.featureLayer.on('ready', function(e) {
+  //     map.featureLayer.eachLayer(function(layer) {
+  //         var item = markerList.appendChild(document.createElement('li'));
+  //         item.innerHTML = layer.toGeoJSON().properties.title;
+  //         item.onclick = function() {
+  //            map.setView(layer.getLatLng(), 14);
+  //            layer.openPopup();
+  //         };
+  //     });
+  // });
+
   var map = L.mapbox.map('map', 'andrewdpohl.kfnbcn30');
   var markerList = document.getElementById('marker-list');
 

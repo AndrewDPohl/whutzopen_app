@@ -48,7 +48,8 @@ app.get("/", function (req, res) {
   var count = parseInt(rawValue) || 0;
   count += 1;
   res.set("Set-Cookie", count)
-  res.send("hello " + count);
+  // res.send("hello " + count);
+  res.render("site/home");
 });
 
 
@@ -74,7 +75,7 @@ app.post("/users", function (req, res) {
       req.login(user, function(){
         // after login redirect show page
         console.log("Id: ", user.id)
-        res.redirect("site/list/" + user.id);
+        res.redirect("/list"); //+user.id
       });
     })
 });
@@ -146,7 +147,11 @@ app.get("/list", function (req, res) {
 });
 
 app.get("/show", function (req, res){
-  res.render("site/show");
+  if (req.user) {
+    res.render("site/show");
+  } else {
+    res.redirect("/login")
+  }
 });
 
 app.get("/logout", function (req, res) {
@@ -162,6 +167,21 @@ app.get("/home", function (req, res) {
   } else {
     res.render("site/home", {user: false});
   }
+});
+
+
+app.get("/search2", function (req, res) {
+  var url = "https://api.foursquare.com/v2/venues/explore?near=San-Francisco,CA&openNow=1&radius=30000&sortByDistance=1&limit=20&query="+ req.query.category +"&client_id=00WTXTLR54SU1KI5HWJZFQYXIINYHAK5TJ5GQDW4LTRQUBZI&client_secret=ML0WO0WL55FISZDM4UJU5YRRMXKGQD040KKEB13GZ5JRGBSD&v=20141216"
+  request(url, function (err, response, body) {
+    //console.log(body);
+    var results = JSON.parse(body);
+    console.log(results);
+    var venues = results.response.groups[0].items
+    console.log(venues)
+     // res.send(venues)
+    res.render("site/show_2", {venuesList: venues, currentUser: req.user});
+
+  });
 });
 
 
