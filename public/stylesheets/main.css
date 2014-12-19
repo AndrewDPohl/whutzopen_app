@@ -1,5 +1,5 @@
 .home {
-  background-image: url(http://i.imgur.com/kgC3pHH.jpg);
+  background-image: url(http://i.imgur.com/CG0RoGj.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   height: 100%;
@@ -52,6 +52,13 @@
   font-size: 150px;
   color: rgb(149, 165, 166);
   position: fixed;
+  text-shadow: 2px 2px 8px #FF0000;
+}
+
+.list_main_logo {
+  font-family: 'Pacifico', cursive;
+  font-size: 150px;
+  color: rgb(149, 155, 166);
   text-shadow: 2px 2px 8px #FF0000;
 }
  
