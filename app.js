@@ -94,7 +94,10 @@ app.post("/favorite", function (req, res) {
 /*AFTER CLICKING A BUTTON FROM THE INDEX PAGE, THIS FUNCTION RUNS AND
   REDIRECTS TO THE SHOW PAGE */
 app.get("/search", function (req, res) {
-  var url = "https://api.foursquare.com/v2/venues/explore?near=San-Francisco,CA&openNow=1&radius=30000&sortByDistance=1&limit=20&query="+ req.query.category +"&client_id=00WTXTLR54SU1KI5HWJZFQYXIINYHAK5TJ5GQDW4LTRQUBZI&client_secret=ML0WO0WL55FISZDM4UJU5YRRMXKGQD040KKEB13GZ5JRGBSD&v=20141216"
+  var ll = req.query.lat + "," + req.query.long;
+  console.log(req.query)
+  var url = "https://api.foursquare.com/v2/venues/explore?llAcc=17&ll=" + 
+  ll+ "&openNow=1&radius=30000&sortByDistance=1&limit=20&query="+ req.query.category +"&client_id=00WTXTLR54SU1KI5HWJZFQYXIINYHAK5TJ5GQDW4LTRQUBZI&client_secret=ML0WO0WL55FISZDM4UJU5YRRMXKGQD040KKEB13GZ5JRGBSD&v=20141216"
   request(url, function (err, response, body) {
     //console.log(body);
     var results = JSON.parse(body);
@@ -169,20 +172,20 @@ app.get("/home", function (req, res) {
   }
 });
 
+// **** GET RID OF THIS ****
+// app.get("/search2", function (req, res) {
+//   var url = "https://api.foursquare.com/v2/venues/explore?near=San-Francisco,CA&openNow=1&radius=30000&sortByDistance=1&limit=20&query="+ req.query.category +"&client_id=00WTXTLR54SU1KI5HWJZFQYXIINYHAK5TJ5GQDW4LTRQUBZI&client_secret=ML0WO0WL55FISZDM4UJU5YRRMXKGQD040KKEB13GZ5JRGBSD&v=20141216"
+//   request(url, function (err, response, body) {
+//     //console.log(body);
+//     var results = JSON.parse(body);
+//     console.log(results);
+//     var venues = results.response.groups[0].items
+//     console.log(venues)
+//      // res.send(venues)
+//     res.render("site/show_2", {venuesList: venues, currentUser: req.user});
 
-app.get("/search2", function (req, res) {
-  var url = "https://api.foursquare.com/v2/venues/explore?near=San-Francisco,CA&openNow=1&radius=30000&sortByDistance=1&limit=20&query="+ req.query.category +"&client_id=00WTXTLR54SU1KI5HWJZFQYXIINYHAK5TJ5GQDW4LTRQUBZI&client_secret=ML0WO0WL55FISZDM4UJU5YRRMXKGQD040KKEB13GZ5JRGBSD&v=20141216"
-  request(url, function (err, response, body) {
-    //console.log(body);
-    var results = JSON.parse(body);
-    console.log(results);
-    var venues = results.response.groups[0].items
-    console.log(venues)
-     // res.send(venues)
-    res.render("site/show_2", {venuesList: venues, currentUser: req.user});
-
-  });
-});
+//   });
+// });
 
 
 app.listen(process.env.PORT || 3000, function() {

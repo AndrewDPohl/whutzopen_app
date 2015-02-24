@@ -5,11 +5,36 @@
   <title>LOGIN PAGE</title>
   <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
   <link rel="stylesheet" href="/stylesheets/main.css">
+  <script>
+    window.onload = function (){
+      var foodForms = document.querySelectorAll(".food-form");
+      var addInput = function  (form, name, value) {
+         var input =  document.createElement("input");
+         input.name = name;
+         input.value = value;
+         input.type = "hidden";
+         form.appendChild(input);
+         form.querySelector("fieldset").removeAttribute("disabled")
+      };
+      var addLoc = function (form, loc) {
+        console.log("query", loc.coords.latitude , loc.coords.longitude);
+        addInput(form, "lat", loc.coords.latitude );
+        addInput(form,"long", loc.coords.longitude);
+      }
+      console.log("Blah")
+      navigator.geolocation.getCurrentPosition(function (loc){
+        console.log("Yes!", foodForms)
+        for (var i = 0; i < foodForms.length; i++) {
+          addLoc(foodForms[i], loc);
+        };
+      });
+    }
+  </script>
 </head>
 <div class="container">
   <body class="list">
     <div id="header">
-      <h1 class="list_main_logo">whutzOpen?</h1>
+      <h1 class="list_main_logo">whutz Open?</h1>
     </div><br> 
     <div>
       <h1 class="list_text">WELCOME BACK!  LET'S SEE whutzOpen!!</h1>
@@ -17,143 +42,185 @@
     <div class="container-list">
       <div class="row">
         <div class="col-md-3">
-          <form action="/search" method="GET">
-            <input type="hidden" name="category" value="coffee">
-            <button class="btn btn-default btn-lg" id="coffee" >COFFEE</button>
+          <form action="/search" class="food-form" disabled="true" method="GET">
+            <fieldset disabled>  
+              <input type="hidden" name="category" value="coffee">
+              <button class="btn btn-default btn-lg" id="coffee" >COFFEE</button>
+            </fieldset>
           </form><br>
         </div>
         <div class="col-md-3">
-          <form action="/search" method="GET">
-            <input type="hidden" name="category" value="burritos">
-            <button class="btn btn-default btn-lg" id="burritos">BURRITOS</button>
+          <form action="/search" class="food-form" disabled="true" method="GET">
+            <fieldset disabled>  
+              <input type="hidden" name="category" value="burritos">
+              <button class="btn btn-default btn-lg" id="burritos">BURRITOS</button>
+            </fieldset>
           </form><br>
         </div>
         <div class="col-md-3">
-          <form action="/search" method="GET">
-            <input type="hidden" name="category" value="burgers">
-            <button class="btn btn-default btn-lg" id="burgers">BURGERS</button>
+          <form action="/search" class="food-form" disabled="true" method="GET">
+            <fieldset disabled>  
+              <input type="hidden" name="category" value="burgers">
+              <button class="btn btn-default btn-lg" id="burgers">BURGERS</button>
+            </fieldset>
           </form><br>
         </div>
         <div class="col-md-3">
-          <form action="/search" method="GET">
-            <input type="hidden" name="category" value="pasta">
-            <button class="btn btn-default btn-lg" id="pasta">PASTA</button>
-          </form><br>
-        </div>
-      </div>
-      
-      <div class="row">
-        <div class="col-md-3">
-          <form action="/search" method="GET">
-            <input type="hidden" name="category" value="vegan">
-            <button class="btn btn-default btn-lg" id="vegan">VEGAN</button>
-          </form><br>
-        </div>
-        <div class="col-md-3">
-          <form action="/search" method="GET">
-            <input type="hidden" name="category" value="vegetarian">
-            <button class="btn btn-default btn-lg" id="vegetarian">VEGETARIAN</button>
-          </form><br>
-        </div>
-        <div class="col-md-3">
-          <form action="/search" method="GET">
-            <input type="hidden" name="category" value="doughnuts">
-            <button class="btn btn-default btn-lg" id="doughnuts">DOUGHNUTS</button>
-          </form><br>
-        </div>
-        <div class="col-md-3">
-          <form action="/search" method="GET">
-            <input type="hidden" name="category" value="beer">
-            <button class="btn btn-default btn-lg" id="beer">BEER</button>
+          <form action="/search" class="food-form" disabled="true" method="GET">
+            <fieldset disabled>  
+              <input type="hidden" name="category" value="pasta">
+              <button class="btn btn-default btn-lg" id="pasta">PASTA</button>
+            </fieldset>
           </form><br>
         </div>
       </div>
       
       <div class="row">
         <div class="col-md-3">
-          <form action="/search" method="GET">
-            <input type="hidden" name="category" value="pizza">
-            <button class="btn btn-default btn-lg" id="pizza">PIZZA</button>
+          <form action="/search" class="food-form" disabled="true" method="GET">
+            <fieldset disabled>  
+              <input type="hidden" name="category" value="vegan">
+              <button class="btn btn-default btn-lg" id="vegan">VEGAN</button>
+            </fieldset>
           </form><br>
         </div>
         <div class="col-md-3">
-          <form action="/search" method="GET">
-            <input type="hidden" name="category" value="cocktails">
-            <button class="btn btn-default btn-lg" id="cocktails">COCKTAILS</button>
+          <form action="/search" class="food-form" disabled="true" method="GET">
+            <fieldset disabled>  
+              <input type="hidden" name="category" value="vegetarian">
+               <button class="btn btn-default btn-lg" id="vegetarian">VEGETARIAN
+              </button>
+            </fieldset>
           </form><br>
         </div>
         <div class="col-md-3">
-          <form action="/search" method="GET">
-            <input type="hidden" name="category" value="bacon">
-            <button class="btn btn-default btn-lg" id="bacon">BACON</button>
+          <form action="/search" class="food-form" disabled="true" method="GET">
+            <fieldset disabled>  
+              <input type="hidden" name="category" value="doughnuts">
+                <button class="btn btn-default btn-lg" id="doughnuts">DOUGHNUTS
+              </button>
+            </fieldset>
           </form><br>
         </div>
         <div class="col-md-3">
-          <form action="/search" method="GET">
-            <input type="hidden" name="category" value="tea">
-            <button class="btn btn-default btn-lg" id="tea">TEA</button>
-          </form><br>
-        </div>
-      </div>
-      
-      <div class="row">
-        <div class="col-md-3">
-          <form action="/search" method="GET">
-            <input type="hidden" name="category" value="kombucha">
-            <button class="btn btn-default btn-lg" id="kombucha">KOMBUCHA</button>
-          </form><br>
-        </div>
-        <div class="col-md-3">
-          <form action="/search" method="GET">
-            <input type="hidden" name="category" value="dessert">
-            <button class="btn btn-default btn-lg" id="dessert">DESSERT</button>
-          </form><br>
-        </div>
-        <div class="col-md-3">
-          <form action="/search" method="GET">
-            <input type="hidden" name="category" value="pastries">
-            <button class="btn btn-default btn-lg" id="pastries">PASTRIES</button>
-          </form><br>
-        </div>
-        <div class="col-md-3">
-          <form action="/search" method="GET">
-            <input type="hidden" name="category" value="pie">
-            <button class="btn btn-default btn-lg" id="pie">PIE</button>
-          </form><br>
+          <form action="/search" class="food-form" disabled="true" method="GET">
+            <fieldset disabled>  
+              <input type="hidden" name="category" value="beer">
+              <button class="btn btn-default btn-lg" id="beer">BEER</button>
+            </fieldset>
+            </form><br>
         </div>
       </div>
       
       <div class="row">
         <div class="col-md-3">
-          <form action="/search" method="GET">
-            <input type="hidden" name="category" value="ramen">
-            <button class="btn btn-default btn-lg" id="ramen">RAMEN</button>
+          <form action="/search" class="food-form" disabled="true" method="GET">
+            <fieldset disabled>  
+              <input type="hidden" name="category" value="pizza">
+              <button class="btn btn-default btn-lg" id="pizza">PIZZA</button>
+            </fieldset>
+          </form><br>
+        </div>
+        <div class="col-md-3">
+          <form action="/search" class="food-form" disabled="true" method="GET">
+            <fieldset disabled>  
+              <input type="hidden" name="category" value="cocktails">
+              <button class="btn btn-default btn-lg" id="cocktails">COCKTAILS
+              </button>
+            </fieldset>
+          </form><br>
+        </div>
+        <div class="col-md-3">
+          <form action="/search" class="food-form" disabled="true" method="GET">
+            <fieldset disabled>  
+              <input type="hidden" name="category" value="bacon">
+              <button class="btn btn-default btn-lg" id="bacon">BACON</button>
+            </fieldset>
+          </form><br>
+        </div>
+        <div class="col-md-3">
+          <form action="/search" class="food-form" disabled="true" method="GET">
+            <fieldset disabled>  
+              <input type="hidden" name="category" value="tea">
+              <button class="btn btn-default btn-lg" id="tea">TEA</button>
+            </fieldset>
+            </form><br>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-3">
+          <form action="/search" class="food-form" disabled="true" method="GET">
+            <fieldset disabled>  
+              <input type="hidden" name="category" value="kombucha">
+              <button class="btn btn-default btn-lg" id="kombucha">KOMBUCHA</button>
+            </fieldset>
+          </form><br>
+        </div>
+        <div class="col-md-3">
+          <form action="/search" class="food-form" disabled="true" method="GET">
+            <fieldset disabled>  
+              <input type="hidden" name="category" value="dessert">
+              <button class="btn btn-default btn-lg" id="dessert">DESSERT</button>
+            </fieldset>
+          </form><br>
+        </div>
+        <div class="col-md-3">
+          <form action="/search" class="food-form" disabled="true" method="GET">
+            <fieldset disabled>  
+              <input type="hidden" name="category" value="pastries">
+              <button class="btn btn-default btn-lg" id="pastries">PASTRIES</button>
+            </fieldset>
+          </form><br>
+        </div>
+        <div class="col-md-3">
+          <form action="/search" class="food-form" disabled="true" method="GET">
+            <fieldset disabled>  
+              <input type="hidden" name="category" value="pie">
+              <button class="btn btn-default btn-lg" id="pie">PIE</button>
+            </fieldset>
+            </form><br>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-3">
+          <form action="/search" class="food-form" disabled="true" method="GET">
+            <fieldset disabled>  
+              <input type="hidden" name="category" value="ramen">
+              <button class="btn btn-default btn-lg" id="ramen">RAMEN</button>
+            </fieldset>
           </form>
         </div>
         <div class="col-md-3">
-          <form action="/search" method="GET">
-            <input type="hidden" name="category" value="pho">
-            <button class="btn btn-default btn-lg" id="pho">PHO</button>
-          </form>
+          <form action="/search" class="food-form" disabled="true" method="GET">
+            <fieldset disabled>  
+              <input type="hidden" name="category" value="pho">
+              <button class="btn btn-default btn-lg" id="pho">PHO</button>
+            </fieldset>
+            </form>
         </div>
         <div class="col-md-3">
-          <form action="/search" method="GET">
-            <input type="hidden" name="category" value="curry">
-            <button class="btn btn-default btn-lg" id="curry">CURRY</button>
+          <form action="/search" class="food-form" disabled="true" method="GET">
+            <fieldset disabled>  
+              <input type="hidden" name="category" value="curry">
+              <button class="btn btn-default btn-lg" id="curry">CURRY</button>
+            </fieldset>
           </form>
         </div>  
         <div class="col-md-3">
-          <form action="/search" method="GET">
-            <input type="hidden" name="category" value="wine">
-            <button class="btn btn-default btn-lg" id="wine">WINE</button>
-          </form>
+          <form action="/search" class="food-form" disabled="true" method="GET">
+            <fieldset disabled>  
+              <input type="hidden" name="category" value="wine">
+              <button class="btn btn-default btn-lg" id="wine">WINE</button>
+            </fieldset>
+            </form>
         </div>
       </div>
     </div>  
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
   </body>
 </div>
 </html>
