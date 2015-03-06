@@ -9,7 +9,11 @@
   <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.css' rel='stylesheet' />
   <style>
   body { margin:0; padding:0; }
-  #map { height: 390px; width:50%; margin-top: 260px;}
+ /* #map { height: 300px; 
+         width:90%; 
+         margin-top: 300px;
+         position: center;
+       }*/
 </style>
 </head>
   <div class="container">
@@ -36,12 +40,19 @@
           </form>
       <% } %>
       </div>  
-      
-      <div class="col-md-6 map-container">
-        <div id='map'></div>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 map-container">
+            <div id='map'></div>
+          </div>
+        </div>
       </div>
-      <div class="col-md-6 list-container">  
-        <ul id='marker-list'></ul>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 list-container">  
+            <ul id='marker-list'></ul>
+          </div>
+        </div>
       </div>
       <script id="venuesList" type="application/json"><%- JSON.stringify(venuesList) %></script>
       <script>
@@ -53,7 +64,7 @@
                 form.action = "/favorite";
                 form.method = "POST";
                 form.innerHTML =  '' +
-                  '<h3 class="venue">' +item.venue.name + '</h3>' + '<h5 class="venue">' +item.venue.location.formattedAddress + '</h5>' + '<h5 class="venue">' +item.venue.contact.formattedPhone + '</h5>' + '<h5>' +
+                  '<h3 class="venue">' +item.venue.name + '</h3>' + '<h5 class="venue">' +item.venue.location.formattedAddress + '</h5>' + '<h5 class="venue">' +item.venue.contact.formattedPhone + '</h5>' + '<h5 class="venue">'+ item.venue.url + '</h5>' + '<h5>' +
                  '<input style="display:none;" name="favorite[venueId]" value="' +  item.venue.id + '"/>' +
                  '<input style="display:none;" name="favorite[userId]" value="<%=currentUser.id %>"/>' +
                   '<button class="btn-sm" id="favorite">FAVORITE</button>';

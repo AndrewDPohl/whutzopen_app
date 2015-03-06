@@ -80,6 +80,13 @@ app.post("/users", function (req, res) {
     })
 });
 
+// Produce a list of favorites for that user
+app.get("/favorites", function (req, res) {
+  console.log("GET /favorites");
+  var favorites = req.Favorites.all
+});
+
+// Create a new favorite and add it to the DB
 app.post("/favorite", function (req, res) {
   console.log("POST /favorites");
   var newFavorite = req.body.favorite;
@@ -146,8 +153,8 @@ app.post('/login', passport.authenticate('local', {
 // });
 
 app.get("/list", function (req, res) {
-  res.render("site/list");
-});
+   res.render("site/list")
+ });
 
 app.get("/show", function (req, res){
   if (req.user) {

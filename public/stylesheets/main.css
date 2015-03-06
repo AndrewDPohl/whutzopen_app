@@ -48,6 +48,10 @@
   cursor: hand;
 }
 
+.show_text:hover {
+  cursor: hand;
+}
+
 .main_logo_show {
   font-family: 'Pacifico', cursive;
   font-size: 150px;
@@ -58,9 +62,10 @@
 
 .list_main_logo {
   font-family: 'Pacifico', cursive;
-  font-size: 150px;
+  font-size: 100px;
   color: rgb(149, 155, 166);
   text-shadow: 2px 2px 8px #FF0000;
+  text-align: center;
 }
  
 .sign_up_main_logo {
@@ -83,22 +88,27 @@
   font-size: 150px;
   color:rgb(39, 174, 96);
   text-shadow: 2px 2px 8px #FF0000;
+  position: center;
 }
 
 .log_in{
   color: white;
   text-shadow: 2px 2px 4px #000000;
   font-size: 35px;
+  text-align: center;
 }
 
 .login_form {
   position: center;
+  width: 100%;
+  height: 100%;
 }
 
 .sign_up {
   color: white;
   text-shadow: 2px 2px 4px #000000;
   font-size: 35px;
+  text-align: center;
 }
 
 .app_phrase {
@@ -111,11 +121,15 @@
   color: white;
   text-shadow: 2px 2px 4px #000000;
   font-size: 35px;
+  text-align: center;
 }
 
 .btn {
   background-color: rgba(44, 62, 80,0.8);
   color: white;
+  width: 100%;
+  height: 100%;
+  position: center;
 }
 
 .venue {
@@ -128,9 +142,11 @@
   background-color: rgba(189, 195, 199,0.2)
 }
 
-#map {
-  position: fixed;
-  width: 500px;
+#map { 
+  height: 300px; 
+  width:100%; 
+  margin-top: 300px;
+  position: center;
 }
 
 #favorite {
@@ -141,4 +157,14 @@
 #nav {
   position: fixed;
   margin-top: 145px;
+}
+
+.header_logo {
+  background-color: black;
+}
+
+.sign_up_form {
+  width: 100%;
+  height: 100%;
+  position: center;
 }
