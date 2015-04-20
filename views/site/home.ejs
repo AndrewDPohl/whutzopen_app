@@ -7,22 +7,33 @@
   <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
   <link rel="stylesheet" href="/stylesheets/main.css">
   </head>
-  <div class="container">
     <body class="home">
-      <div class="header_logo col-xs-12">
-        <h1 class="main_logo">whutzOpen?</h1><br><br>
+      <div class="container">
+        
+        <div class="row">
+          <div class="col-md-4 col-md-offset-4">
+            <h1 class="main_logo">whutzOpen?</h1><br><br>
+          </div><br>
+        </div>
+        
+        <div class="row">
+          <div class="col-md-4 col-md-offset-4">
+            <p class="app_phrase" style="text-align:center">YOUR ONE STOP SHOP TO FIND OUT WHAT IS OPEN, WHEN YOU NEED IT, ANYWHERE</p>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="home_form col-md-4 col-md-offset-4">
+            <form method="get" action="/sign_up">
+              <button type="submit" class="btn btn-default">SIGN UP</button><br>
+            </form><br>
+            <form method="get" action="/login">
+              <button type="submit" class="btn btn-default">LOG IN</button>
+            </form>
+          </div>
+        </div>
       </div>
-        <p class="app_phrase">YOUR ONE STOP SHOP TO FIND OUT WHAT IS OPEN, WHEN YOU NEED IT, ANYWHERE</p>
-
-        <form method="get" action="/sign_up">
-          <button type="submit" class="btn btn-default">SIGN UP</button><br>
-        </form>
-        <form method="get" action="/login">
-          <button type="submit" class="btn btn-default">LOG IN</button>
-        </form>
-
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-      <script src="js/bootstrap.min.js"></script>
-    </body>
-  </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+  </body>
 </html>

@@ -16,11 +16,20 @@
        }*/
 </style>
 </head>
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <h1 class="list_main_logo">whutzOpen?</h1>
+  </div>
+</nav>
+
+<!-- BODY -->
   <div class="container">
     <body class="show_page">
-      <div id="header">
+      <!-- <div id="header">
         <h1 class="main_logo_show">whutzOpen?</h1>
-      </div>
+      </div> -->
 
       <div id="nav"> 
       <% if (currentUser) {%>
@@ -72,7 +81,9 @@
             }
             var data, venuesList, map;
             data        = document.getElementById("venuesList");
+            // console.log(data);
             venuesList  = JSON.parse(data.innerHTML);
+            // console.log(venuesList);
             L.mapbox.accessToken = 'pk.eyJ1IjoiYW5kcmV3ZHBvaGwiLCJhIjoia0g2VFNjWSJ9.dvDZXc0gCmUkqD916mkNdQ';
             window.map    = map     = L.mapbox.map('map', 'andrewdpohl.kfnbcn30')
 
