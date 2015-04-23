@@ -112,7 +112,7 @@ app.get("/search", function (req, res) {
     var venues = results.response.groups[0].items
     console.log(venues)
      // res.send(venues)
-    res.render("site/show", {venuesList: venues, currentUser: req.user});
+    res.render("site/show", {venuesList: venues, currentUser: req.user, lat: req.query.lat, long: req.query.long});
 
   });
 });
@@ -157,8 +157,9 @@ app.get("/list", function (req, res) {
  });
 
 app.get("/show", function (req, res){
+  console.log(req.body);
   if (req.user) {
-    res.render("site/show");
+    res.render("site/show", {lat: req.body.lat, long: req.body.long});
   } else {
     res.redirect("/login")
   }

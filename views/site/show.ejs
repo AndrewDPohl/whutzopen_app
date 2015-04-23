@@ -144,7 +144,7 @@
               setupMap(map, [pos.coords.latitude, pos.coords.longitude]);
             };
             var handleErr   = function  (){
-              var coords = [37.7833, -122.4167];
+              var coords = [Number(<%= lat %>), Number(<%= long %>)];
               setupMap(map, coords);
             };
             navigator.geolocation.getCurrentPosition(handleErr, handleSucc )
