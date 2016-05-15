@@ -21,46 +21,50 @@
 <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container">
     <h1 class="list_main_logo">whutzOpen?</h1>
+    <div id="nav"> 
+      <% if (currentUser) {%>
+      <div>
+        <h3 class="show_text">WELCOME BACK, <%= currentUser.firstName %>
+        </h3>
+        <div class="nav-button-container">
+          <form class="nav-button" method="get" action="/logout">   
+            <button type="submit">LOG OUT</button>
+          </form>
+          <form class="nav-button" method="get" action="/list">
+            <button type="submit">SEARCH</button><br>
+          </form>
+        </div> 
+      </div>
+      <%} else { %> 
+        <form method="get" action="/sign_up">
+          <button type="submit" id="sign_up">SIGN UP HERE</button>
+        </form>
+      <% } %>
+    </div> 
   </div>
 </nav>
 
 <!-- BODY -->
-  <div class="container">
     <body class="show_page">
-      <!-- <div id="header">
-        <h1 class="main_logo_show">whutzOpen?</h1>
-      </div> -->
 
-      <div id="nav"> 
-      <% if (currentUser) {%>
-        <div>
-          <h3 class="show_text">Welcome Back, <%= currentUser.firstName %>
-          </h3>
-          <form method="get" action="/logout">   
-            <button type="submit">LOG OUT</button>
-          </form>
-          <form method="get" action="/list">
-            <button type="submit">SEARCH</button><br>
-          </form> 
-        </div>
-      <%} else { %> 
-          <form method="get" action="/sign_up">
-            <button type="submit" id="sign_up">SIGN UP HERE</button>
-          </form>
-      <% } %>
-      </div>  
+       
       <div class="container">
         <div class="row">
-          <div class="col-md-12 map-container">
+          <!-- <div class="col-md-12 map-container"> -->
+          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <div id='map'></div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <ul id='marker-list'></ul>
           </div>
         </div>
       </div>
       <div class="container">
         <div class="row">
-          <div class="col-md-12 list-container">  
+          <!-- <div class="col-md-12 list-container">   -->
+          <!-- <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <ul id='marker-list'></ul>
-          </div>
+          </div> -->
         </div>
       </div>
       <script id="venuesList" type="application/json"><%- JSON.stringify(venuesList) %></script>
@@ -73,7 +77,7 @@
                 form.action = "/favorite";
                 form.method = "POST";
                 form.innerHTML =  '' +
-                  '<h3 class="venue">' +item.venue.name + '</h3>' + '<h5 class="venue">' +item.venue.location.formattedAddress + '</h5>' + '<h5 class="venue">' +item.venue.contact.formattedPhone + '</h5>' + '<h5 class="venue">'+ item.venue.url + '</h5>' + '<h5>' +
+                  '<h3 class="venue">' +item.venue.name + '</h3>' + '<h5 class="venue">' +item.venue.location.formattedAddress + '</h5>' + '<h5 class="venue">' +item.venue.contact.formattedPhone + '</h5>' + '<h5 class="venue"><a href="'+ item.venue.url + '">' + item.venue.url + '</a></h5>' + '<h5>' +
                  '<input style="display:none;" name="favorite[venueId]" value="' +  item.venue.id + '"/>' +
                  '<input style="display:none;" name="favorite[userId]" value="<%=currentUser.id %>"/>' +
                   '<button class="btn-sm" id="favorite">FAVORITE</button>';
@@ -89,7 +93,7 @@
 
             var setupMap = function (map, coords){
               console.log(map)
-              map.setView(coords, 13);
+              map.setView(coords, 14);
               // L.marker is a low-level marker constructor in Leaflet.
               // iterate over items in venues
 

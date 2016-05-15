@@ -35,8 +35,9 @@
 }
 
 .show_page {
-  background-image: url(http://i.imgur.com/kSyhSXE.jpg);
-  background-repeat: no-repeat;
+  /*background-image: url(http://i.imgur.com/kSyhSXE.jpg);*/
+  /*background-repeat: no-repeat;*/
+  background-color: #34495e;
   background-size: cover;
   height: 100%;
   width: 100%;
@@ -146,14 +147,16 @@
 }
 
 #marker-list {
-  background-color: rgba(189, 195, 199,0.2)
+  background-color: rgba(189, 195, 199,0.2);
+  margin-top: 150px;
 }
 
 #map { 
   height: 300px; 
-  width:100%; 
+  width: 100%;
+  max-width: 1000px; 
   margin-top: 300px;
-  position: center;
+  position: fixed;
 }
 
 #favorite {
@@ -163,7 +166,15 @@
 
 #nav {
   position: fixed;
-  margin-top: 145px;
+}
+
+.nav-button-container {
+  display: inline;
+}
+
+.nav-button {
+  float: left;
+  margin: 50px; 
 }
 
 .sign_up_form {
