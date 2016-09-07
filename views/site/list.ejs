@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <head>
-   <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
   <meta charset="utf-8">
-  <title>LIST PAGE</title>
+  <title>whutzOpen? | List</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
   <link rel="stylesheet" href="/stylesheets/main.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -42,16 +43,18 @@
 
 <!-- BODY -->
 
-<div class="container">
   <body class="list">
+  <div class="container col-xs-12">
     <div class="header_logo">
       <h1 class="list_main_logo">whutzOpen?</h1>
     </div><br> 
     <div>
-      <h1 class="list_main_logo_sub">Let's See whutzOpen?</h1><br>
+      <% if (currentUser) {%>
+          <h3 class="list_main_logo_sub">Hello, <%= currentUser.firstName %>! Let's See whutzOpen?</h3>
+      <% } %>
     </div>
     
-    <div class="container-list">
+    <div class="container-list col-xs-12">
       <div class="row">
         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
           <form action="/search" class="food-form" disabled="false" method="GET">

@@ -153,7 +153,7 @@ app.post('/login', passport.authenticate('local', {
 // });
 
 app.get("/list", function (req, res) {
-   res.render("site/list")
+   res.render("site/list", {currentUser: req.user})
  });
 
 app.get("/show", function (req, res){

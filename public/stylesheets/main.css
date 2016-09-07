@@ -1,3 +1,12 @@
+body { 
+  margin: 0; 
+  padding: 0; 
+}
+
+ul {
+  padding-left: 0 !important;
+}
+
 .home {
   /*background-image: url(http://i.imgur.com/CG0RoGj.jpg);
   background-repeat: no-repeat;*/
@@ -46,15 +55,11 @@
 }
 
 .show_text {
+  font-family: 'Pacifico', cursive;
   color: white;
   text-shadow: 2px 2px 4px #000000;
   font-size: 35px;
-  float: right;
-  cursor: hand;
-}
-
-.show_text:hover {
-  cursor: hand;
+  margin-bottom: 10px;
 }
 
 .main_logo_show {
@@ -68,7 +73,7 @@
 
 .list_main_logo {
   font-family: 'Pacifico', cursive;
-  font-size: 75px;
+  font-size: 50px;
   color: rgb(149, 155, 166);
   text-shadow: 2px 2px 8px #FF0000;
   text-align: center;
@@ -80,6 +85,7 @@
   color: rgb(149, 155, 166);
   text-shadow: 2px 2px 8px #FF0000;
   text-align: center;
+  padding-bottom: 10px;
 }
  
 .sign_up_main_logo {
@@ -146,17 +152,37 @@
   overflow: scroll;
 }
 
-#marker-list {
-  background-color: rgba(189, 195, 199,0.2);
+.main-container {
   margin-top: 150px;
 }
 
-#map { 
-  height: 300px; 
+.list-container, .map-container {
+  height: 500px;
+  overflow: scroll;
+  text-align: center;
+}
+
+.list-container {
+  margin-bottom: 50px;
+}
+
+
+#marker-list {
+  margin-top: 10px;
+  background-color: rgba(189, 195, 199,0.2);
+}
+
+#marker-list li {
+  cursor: pointer;
+}
+
+.map-box {
   width: 100%;
-  max-width: 1000px; 
-  margin-top: 300px;
-  position: fixed;
+}
+
+#map { 
+  height: 500px; 
+  width: 100%;
 }
 
 #favorite {
@@ -173,8 +199,7 @@
 }
 
 .nav-button {
-  float: left;
-  margin: 50px; 
+  margin: 20px; 
 }
 
 .sign_up_form {
