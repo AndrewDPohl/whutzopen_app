@@ -27,6 +27,7 @@
          console.log("Yes!", foodForms);
          console.log(loc.coords.latitude);
          console.log(loc.coords.longitude);
+         $('#ready').html("Ready!");
          for (var i = 0; i < foodForms.length; i++) {
            addLoc(foodForms[i], loc);
          };
@@ -47,6 +48,7 @@
       <% if (currentUser) {%>
           <h3 class="list_main_logo_sub">Hello, <%= currentUser.firstName %>! Let's See whutzOpen?</h3>
       <% } %>
+      <h1 id="ready">Loading!</h1>
     </div><br>
     
     <div class="container-list col-xs-12">

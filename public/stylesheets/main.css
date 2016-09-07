@@ -80,7 +80,12 @@ ul {
 }
 
 .list-copy {
+  font-family: 'Pacifico', cursive;
   margin-top: 100px;
+}
+
+#ready {
+  text-align: center;
 }
 
 .list_main_logo_sub {
