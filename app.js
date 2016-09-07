@@ -102,7 +102,10 @@ app.post("/favorite", function (req, res) {
   REDIRECTS TO THE SHOW PAGE */
 app.get("/search", function (req, res) {
   var ll = req.query.lat + "," + req.query.long;
-  console.log(req.query)
+  console.log(req.query);
+  console.log(req.query.lat);
+  console.log(req.query.long);
+  console.log(ll);
   var url = "https://api.foursquare.com/v2/venues/explore?llAcc=17&ll=" + 
   ll+ "&openNow=1&radius=30000&sortByDistance=1&limit=20&query="+ req.query.category +"&client_id=00WTXTLR54SU1KI5HWJZFQYXIINYHAK5TJ5GQDW4LTRQUBZI&client_secret=ML0WO0WL55FISZDM4UJU5YRRMXKGQD040KKEB13GZ5JRGBSD&v=20141216"
   request(url, function (err, response, body) {
